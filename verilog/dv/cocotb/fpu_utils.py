@@ -9,8 +9,8 @@ CMD_FPU_DP_ADD  = 0b1001 # Double Precision (64 bit) Adder
 CMD_FPU_DP_MUL  = 0b1010 # Double Precision (64 bit) Multipler
 CMD_FPU_DP_DIV  = 0b1011 # Double Precision (64 bit) Divider
 
-def bin_to_float32(val):
+def bin2float(val):
     return struct.unpack("<f", struct.pack("<I", val))[0]
 
-def float32_to_bin(val):
-    return struct.unpack('i',struct.pack('f',val))[0]
+def float2bin(val):
+    return struct.unpack('<i',struct.pack('<f',val))[0]

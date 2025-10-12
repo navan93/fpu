@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
-// SPDX-FileCopyrightText: 2021 , Dinesh Annayya                          
-// 
+// SPDX-FileCopyrightText: 2021 , Dinesh Annayya
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -88,17 +88,17 @@ wire sp_f2i_dval =  (dval) & (cmd == CMD_FPU_SP_F2I);
 wire sp_i2f_dval =  (dval) & (cmd == CMD_FPU_SP_I2F);
 
 
-assign rdy    = (cmd == CMD_FPU_SP_ADD) ? sp_add_rdy    : 
-	        (cmd == CMD_FPU_SP_MUL) ? sp_mul_rdy    : 
-		(cmd == CMD_FPU_SP_DIV) ? sp_div_rdy    : 
-		(cmd == CMD_FPU_SP_F2I) ? sp_f2i_rdy    : 
-		(cmd == CMD_FPU_SP_I2F) ? sp_i2f_rdy    : 
+assign rdy    = (cmd == CMD_FPU_SP_ADD) ? sp_add_rdy    :
+	        (cmd == CMD_FPU_SP_MUL) ? sp_mul_rdy    :
+		(cmd == CMD_FPU_SP_DIV) ? sp_div_rdy    :
+		(cmd == CMD_FPU_SP_F2I) ? sp_f2i_rdy    :
+		(cmd == CMD_FPU_SP_I2F) ? sp_i2f_rdy    :
 		'0;
-assign result = (cmd == CMD_FPU_SP_ADD) ? sp_add_result : 
-	        (cmd == CMD_FPU_SP_MUL) ? sp_mul_result : 
-		(cmd == CMD_FPU_SP_DIV) ? sp_div_result : 
-		(cmd == CMD_FPU_SP_F2I) ? sp_f2i_result : 
-		(cmd == CMD_FPU_SP_I2F) ? sp_i2f_result : 
+assign result = (cmd == CMD_FPU_SP_ADD) ? sp_add_result :
+	        (cmd == CMD_FPU_SP_MUL) ? sp_mul_result :
+		(cmd == CMD_FPU_SP_DIV) ? sp_div_result :
+		(cmd == CMD_FPU_SP_F2I) ? sp_f2i_result :
+		(cmd == CMD_FPU_SP_I2F) ? sp_i2f_result :
 		'0;
 
 // floating point adder
@@ -152,5 +152,14 @@ fpu_sp_i2f  u_sp_i2f (
         .result            (sp_i2f_result   ),
         .rdy               (sp_i2f_rdy      )
       );
+
+// the "macro" to dump signals
+`ifdef COCOTB_SIM
+initial begin
+  $dumpfile ("fpu_sp_top.vcd");
+  $dumpvars (0, fpu_sp_top);
+  #1;
+end
+`endif
 
 endmodule
